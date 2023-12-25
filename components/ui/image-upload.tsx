@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ImagePlus, Trash } from "lucide-react";
 import Image from "next/image";
-import { CldUploadWidget } from "next-cloudinary";
+import { CldImage, CldUploadWidget } from "next-cloudinary";
 
 interface ImageUploadProps {
-  disable: boolean;
+  disable?: boolean;
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
+  onError?: (value: string) => void;
   value: string[];
 }
 
@@ -17,6 +18,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   disable,
   onChange,
   onRemove,
+  onError,
   value,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -56,7 +58,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         ))}
       </div>
       <CldUploadWidget onUpload={onUpload} uploadPreset="sogvkrzf">
-        {({ open }) => {
+        {({ open, isLoading }) => {
+          console.log(isLoading);
           const onClick = () => {
             open();
           };
@@ -73,7 +76,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           );
         }}
       </CldUploadWidget>
-
     </div>
   );
 };
