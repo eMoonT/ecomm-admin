@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
 
 interface ImageUploadProps {
-  disable?: boolean;
+  disable: boolean;
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
   value: string[];
@@ -73,6 +73,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           );
         }}
       </CldUploadWidget>
+
     </div>
   );
 };
