@@ -4,29 +4,29 @@ import { auth } from "@clerk/nextjs";
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string; sizeId: string } }
+  { params }: { params: { storeId: string; colorId: string } }
 ) {
   try {
-    if (!params.sizeId) {
-      return new NextResponse("sizeId is Require", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("colorId is Require", { status: 400 });
     }
 
     const size = await prisma.size.findUnique({
       where: {
-        id: params.sizeId,
+        id: params.colorId,
       },
     });
 
     return NextResponse.json(size);
   } catch (error) {
-    console.log("[SIZE_GET]", error);
+    console.log("[COLOR_GET]", error);
     return new NextResponse("Internet error", { status: 500 });
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; sizeId: string } }
+  { params }: { params: { storeId: string; colorId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -45,8 +45,8 @@ export async function PATCH(
       return new NextResponse("value is Require", { status: 400 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("sizeId is Require", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("colorId is Require", { status: 400 });
     }
 
     const storeByUserId = await prisma.store.findFirst({
@@ -60,9 +60,9 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const size = await prisma.size.updateMany({
+    const color = await prisma.color.updateMany({
       where: {
-        id: params.sizeId,
+        id: params.colorId,
       },
       data: {
         name,
@@ -70,16 +70,16 @@ export async function PATCH(
       },
     });
 
-    return NextResponse.json(size);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[SIZE_PATCH]", error);
+    console.log("[COLOR_PATCH]", error);
     return new NextResponse("Internet error", { status: 500 });
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { storeId: string; sizeId: string } }
+  { params }: { params: { storeId: string; colorId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -88,8 +88,8 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("sizeId is Require", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("colorId is Require", { status: 400 });
     }
 
     const storeByUserId = await prisma.store.findFirst({
@@ -103,15 +103,15 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const size = await prisma.size.deleteMany({
+    const color = await prisma.color.deleteMany({
       where: {
-        id: params.sizeId,
+        id: params.colorId,
       },
     });
 
-    return NextResponse.json(size);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[SIZE_DELETE]", error);
+    console.log("[COLOR_DELETE]", error);
     return new NextResponse("Internet error", { status: 500 });
   }
 }
