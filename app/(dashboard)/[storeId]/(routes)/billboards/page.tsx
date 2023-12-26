@@ -1,6 +1,6 @@
 "use clinet";
 
-import BillboardClient from "./components/BillboardClient";
+import BillboardClient from "./components/client";
 import prisma from "@/lib/prisma";
 import { BillboardColumn } from "./components/columns";
 import { format } from "date-fns";
