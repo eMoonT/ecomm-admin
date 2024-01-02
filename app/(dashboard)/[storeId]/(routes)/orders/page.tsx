@@ -4,7 +4,7 @@ import OrderClient from "./components/client";
 import prisma from "@/lib/prisma";
 import { OrderColumn } from "./components/columns";
 import { format } from "date-fns";
-import { foarmatted } from "@/lib/utils";
+import { formatted } from "@/lib/utils";
 
 const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
   const orders = await prisma.order.findMany({
@@ -29,7 +29,7 @@ const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
       address: item.address,
       isPaid: item.isPaid,
       products: item.orderItems.map((orderItem) => orderItem.product.name).join(', '),
-      totalPrice: foarmatted.format(
+      totalPrice: formatted.format(
         item.orderItems.reduce(
           (total, item) => (total + Number(item.product.price)),
           0

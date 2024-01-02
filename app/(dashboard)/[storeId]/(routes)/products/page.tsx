@@ -4,7 +4,7 @@ import ProductClient from "./components/client";
 import prisma from "@/lib/prisma";
 import { ProductColumn } from "./components/columns";
 import { format } from "date-fns";
-import { foarmatted } from "@/lib/utils";
+import { formatted } from "@/lib/utils";
 
 const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
   const products = await prisma.product.findMany({
@@ -26,7 +26,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
       name: item.name,
       isFeatured: item.isFeatured,
       isArchived: item.isArchived,
-      price: foarmatted.format(item.price.toNumber()),
+      price: formatted.format(item.price.toNumber()),
       category: item.category.name,
       size: item.size.value,
       color: item.color.value,
